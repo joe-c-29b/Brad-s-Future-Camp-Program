@@ -7,3 +7,6 @@ Mon Tue Wed Thur Fri Sat Sun
 1   2   3   4    5   6    7
 When requesting activities kids get to select 10 different activities
 
+
+Beginner project period minimum required campers: 5
+Beginner project period max campers: 
