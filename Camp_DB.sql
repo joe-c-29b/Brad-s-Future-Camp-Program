@@ -14,7 +14,7 @@ CREATE DATABASE "CampActivities_DB"
 ------------------------------------------------------------------------
 --Create tables for each activity
 	CREATE TABLE counselor (
-		id			VARCHAR(7),
+		id		VARCHAR(7),
 		year		INTEGER,
 		SESSION		INTEGER,
 		CONSTRAINT counselor_pkey PRIMARY KEY (id, year, session)
@@ -36,19 +36,25 @@ CREATE DATABASE "CampActivities_DB"
 	);
 	
 		CREATE TABLE camper (
-		id			VARCHAR(7),
+		id		VARCHAR(7),
 		name		VARCHAR(25),
-		age			INTEGER,
+		DOB		DATE,
+		n_summers	INTEGER,
+		CONSTRAINT classroom_pkey PRIMARY KEY (id)
+	);
+	
+		CREATE TABLE session (
 		year		INTEGER,
 		session		INTEGER,
-		n_summers	INTEGER,
-		CONSTRAINT classroom_pkey PRIMARY KEY (building, room_number)
+		id		VARCHAR(7)
+		CONSTRAINT classroom_pkey PRIMARY KEY (year, session, id)
 	);
 	
 		CREATE TABLE takes (
 		act_num		NUMERIC(2,0),
-		id			VARCHAR(7),
+		id		VARCHAR(7),
 		period		INTEGER,
+		week		INTEGER,
 		year		INTEGER,
 		session		INTEGER,
 		location	VARCHAR(15),
@@ -71,3 +77,19 @@ CREATE DATABASE "CampActivities_DB"
 		prereq_num	NUMERIC(2,0),
 		CONSTRAINT classroom_pkey PRIMARY KEY (act_num, prereq_num)
 	);
+	
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+--INSERT INTO activity VALUES ('<activityname> - <level>', 'min', 'max')
+
+INSERT INTO activity VALUES ('Archery - Beginner', '5', '15')
+INSERT INTO activity VALUES ('Archery - Intermediate', '5', '15')
+INSERT INTO activity VALUES ('Archery - Advanced', '3', '15')
+
+INSERT INTO activity VALUES ('ArtsNCrafts - Beginner', '5', '10')
+INSERT INTO activity VALUES ('ArtsNCrafts - Intermediate', '5', '10')
+INSERT INTO activity VALUES ('ArtsNCrafts - Advanced', '3', '10')
+
+INSERT INTO activity VALUES ('ArtsNCrafts - Beginner', '5', '10')
+INSERT INTO activity VALUES ('ArtsNCrafts - Intermediate', '5', '10')
+INSERT INTO activity VALUES ('ArtsNCrafts - Advanced', '3', '10')
