@@ -31,3 +31,8 @@ Camper: id - see above; name - the individuals name; age - calculated from the D
 Activity: act_num - serial number assigned to each activity; min - minimum amount of campers required for a program period; max - max permitted in one program period; name - the name of the activity
 Prereq: act_num - the number of the intended activity; prereq_num - the act_num of the prerequisite activity
 Takes: act_num - the number of the intended activity; id - the SSSN of the camper; period - period of the day the activity is taking place; week - whatever week of camp the activity is taking place, sesh - the session of camp the activity takes place in; location - area of camp the activity is taking place in; inst_id - SSSN of the counselor instructing the activity
+-----------------------------------------
+-----------------------------------------
+-----------------------------------------
+-----------------------------------------
+captains log: I am closing out for tonight, I need to make sure that all my sql tables match the ERD and that all my PK and FKs are done.  After that I can work on activity input and functions.
