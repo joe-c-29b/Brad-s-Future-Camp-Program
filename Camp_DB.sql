@@ -13,44 +13,62 @@ CREATE DATABASE "CampActivities_DB"
 ------------------------------------------------------------------------
 ------------------------------------------------------------------------
 --Create tables for each activity
-	CREATE TABLE counselor (
-		id		VARCHAR(7),
-		year		INTEGER,
-		SESSION		INTEGER,
-		CONSTRAINT counselor_pkey PRIMARY KEY (id, year, session)
+	CREATE TABLE huts (
+		cabin		VARCHAR(6),
+		year_built	INTEGER,		
+		max_occ		INTEGER,
+		min_occ		INTEGER,
+		village		VARCHAR(6),
+		age_group	VARCHAR(6),
+		CONSTRAINT huts_pkey PRIMARY KEY (cabin, year_built)
 	);
 	
-		CREATE TABLE cabin (
+	CREATE TABLE cabin (
 		cabin		VARCHAR(6),
-		year		INTEGER,
 		session		INTEGER,
 		occupants	VARCHAR(7),
-		CONSTRAINT classroom_pkey PRIMARY KEY (cabin, year, session, occupants)
+		CONSTRAINT cabin_pkey PRIMARY KEY (cabin, session, occupants),
+		CONSTRAINT cabinFK FOREIGN KEY (sesh) REFERENCES session (sesh),
+		CONSTRAINT cabinFK2 FOREIGN KEY (occupants) REFERENCES bodies (id),
+		CONSTRAINT cabinFK3 FOREIGN KEY (cabin) REFERENCES huts(cabin)
 	);
-	
-		CREATE TABLE activity (
-		act_num		NUMERIC(2,0),
-		minimum		NUMERIC(2,0),
-		maximum		NUMERIC(2,0),
-		CONSTRAINT classroom_pkey PRIMARY KEY (act_num)
-	);
-	
-		CREATE TABLE camper (
+-------------------------------------------------------------------------------------------	
+	CREATE TABLE bodies (
+		sesh		VARCHAR(7),
 		id		VARCHAR(7),
 		name		VARCHAR(25),
 		DOB		DATE,
 		n_summers	INTEGER,
-		CONSTRAINT classroom_pkey PRIMARY KEY (id)
+		CONSTRAINT bodies_pkey PRIMARY KEY (sesh, id),
+		CONSTRAINT bodiesFK FOREIGN KEY (sesh) REFERENCES session (sesh)
+	);
+
+	CREATE TABLE counselor (
+		id		VARCHAR(7),
+		name		VARCHAR(25),
+		CONSTRAINT counselor_pkey PRIMARY KEY (id),
+		CONSTRAINT counselorFK FOREIGN KEY (id, name) REFERENCES bodies (id, name)
 	);
 	
-		CREATE TABLE session (
+	CREATE TABLE camper (
+		id		VARCHAR(7),
+		name		VARCHAR(25),
+		age		INTEGER,
+		CONSTRAINT camper_pkey PRIMARY KEY (id),
+		CONSTRAINT camperFK FOREIGN KEY (id) REFERENCES bodies (id),
+		CONSTRAINT camperFK2 FOREIGN KEY (name) REFERENCES bodies (name)
+	);
+	
+	CREATE TABLE session (
+		sesh		VARCHAR(7),
 		year		INTEGER,
-		session		INTEGER,
-		id		VARCHAR(7)
-		CONSTRAINT classroom_pkey PRIMARY KEY (year, session, id)
+		chunk		VARCHAR(7),
+		begin		DATE,
+		end		DATE,
+		CONSTRAINT session_pkey PRIMARY KEY (sesh)
 	);
-	
-		CREATE TABLE takes (
+------------------------------------------------------------------------------------------	
+	CREATE TABLE takes (
 		act_num		NUMERIC(2,0),
 		id		VARCHAR(7),
 		period		INTEGER,
@@ -59,23 +77,26 @@ CREATE DATABASE "CampActivities_DB"
 		session		INTEGER,
 		location	VARCHAR(15),
 		inst_id		VARCHAR(7),
-		CONSTRAINT classroom_pkey PRIMARY KEY (act_num, period, year, session, inst_id, id, location)
+		CONSTRAINT takes_pkey PRIMARY KEY (act_num, period, year, session, inst_id, id, location),
+		CONSTRAINT takesFK FOREIGN KEY (id) REFERENCES campers (id),
+		CONSTRAINT takesFK2 FOREIGN KEY (sesh) REFERENCES session (sesh),
+		CONSTRAINT takesFK3 FOREIGN KEY (inst_id) REFERENCES counselor (id)
 	);
 	
-		CREATE TABLE huts (
-		cabin		VARCHAR(6),
-		max_occ		INTEGER,
-		min_occ		INTEGER,
-		village		VARCHAR(6),
-		age_group	VARCHAR(6),
-		year_built	INTEGER,
-		CONSTRAINT classroom_pkey PRIMARY KEY (cabin, year_built)
+	CREATE TABLE activity (
+		act_num		NUMERIC(2,0),
+		name		VARCHAR(15),
+		minimum		NUMERIC(2,0),
+		maximum		NUMERIC(2,0),
+		CONSTRAINT activity_pkey PRIMARY KEY (act_num)
 	);
 	
-		CREATE TABLE prereq (
+	CREATE TABLE prereq (
 		act_num		NUMERIC(2,0),
 		prereq_num	NUMERIC(2,0),
-		CONSTRAINT classroom_pkey PRIMARY KEY (act_num, prereq_num)
+		CONSTRAINT prereq_pkey PRIMARY KEY (act_num, prereq_num),
+		CONSTRAINT prereqFK FOREIGN KEY (act_num) REFERENCES activity (act_num),
+		CONSTRAINT prereqFK2 FOREIGN KEY (prereq_num) REFERENCES activity (act_num)
 	);
 	
 ----------------------------------------------------------------------------------------------------------------
