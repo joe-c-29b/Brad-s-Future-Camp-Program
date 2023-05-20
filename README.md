@@ -50,3 +50,5 @@ captains log: I am closing out for tonight, I need to make sure that all my sql 
 --
 stardate 3.1 captains log: just finished working on this for the morning.  ERD and sql file should match now.  Now need to finish the activity input as well as huts input.  Then you need to do ON DELETE/UPDATE stuff for all of your FKs.
 --
+stardate 18.3 captains log: we are working in Access to practice.  Must take several items off tables that are not necessary.  The whole point of relational dbs is consolidating and not repeating data for readability through queries, not schema readability.  Dropping names from pretty much every table but IDs.  Also I added an IDs table.
+--
